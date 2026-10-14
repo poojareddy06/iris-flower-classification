@@ -229,7 +229,13 @@ export const translations: Record<LanguageKey, Record<string, string>> = {
     "btn_create_account": "Create Account",
     "btn_try_demo_account": "Try Demo Account (Instant Access)",
     "no_account_yet": "Don't have an account?",
-    "already_have_account": "Already have an account?"
+    "already_have_account": "Already have an account?",
+    "alert_unrelated_image_title": "Alert: Image Not Related to Project",
+    "alert_unrelated_image_desc": "The uploaded file does not match any Iris flower characteristics. It was identified as a diagram, document, or non-botanical graphic. Please upload an authentic photograph of an Iris flower.",
+    "badge_unrecognized_image": "Unrelated Image",
+    "btn_try_another_photo": "Upload Flower Photo",
+    "alert_requirements_title": "Flower Image Requirements",
+    "alert_requirements_guide": "Please upload a natural close-up photograph of an Iris flower showing petals (violet, purple, lavender, or gold signal) and green sepals or foliage."
   },
   "te": {
     "app_title": "ఐరిస్ML స్టూడియో",
@@ -451,7 +457,13 @@ export const translations: Record<LanguageKey, Record<string, string>> = {
     "btn_create_account": "ఖాతాను సృష్టించండి",
     "btn_try_demo_account": "డెమో ఖాతాను ప్రయత్నించండి (తక్షణ ప్రవేశం)",
     "no_account_yet": "ఖాతా లేదా?",
-    "already_have_account": "ఇప్పటికే ఖాతా ఉందా?"
+    "already_have_account": "ఇప్పటికే ఖాతా ఉందా?",
+    "alert_unrelated_image_title": "హెచ్చరిక: చిత్రం ప్రాజెక్ట్‌కు సంబంధించినది కాదు",
+    "alert_unrelated_image_desc": "అప్‌లోడ్ చేసిన చిత్రం ఐరిస్ పువ్వుగా గుర్తించబడలేదు. ఇది రేఖాచిత్రం, పత్రం లేదా ఇతర గ్రాఫిక్‌గా గుర్తించబడింది. దయచేసి నిజమైన ఐరిస్ పువ్వు ఫోటోను అప్‌లోడ్ చేయండి.",
+    "badge_unrecognized_image": "సంబంధం లేని చిత్రం",
+    "btn_try_another_photo": "పువ్వు ఫోటోను అప్‌లోడ్ చేయండి",
+    "alert_requirements_title": "చిత్ర అప్‌లోడ్ నిబంధనలు",
+    "alert_requirements_guide": "దయచేసి రేకులు (నీలం, ఊదా, లావెండర్ లేదా పసుపు రంగు) మరియు ఆకుపచ్చ ఆకులు ఉన్న ఐరిస్ పువ్వు ఫోటోను అప్‌లోడ్ చేయండి."
   },
   "hi": {
     "app_title": "आइरिसML स्टूडियो",
@@ -673,7 +685,13 @@ export const translations: Record<LanguageKey, Record<string, string>> = {
     "btn_create_account": "खाता बनाएं",
     "btn_try_demo_account": "डेमो खाता आज़माएं (तुरंत पहुंच)",
     "no_account_yet": "खाता नहीं है?",
-    "already_have_account": "पहले से खाता है?"
+    "already_have_account": "पहले से खाता है?",
+    "alert_unrelated_image_title": "चेतावनी: छवि प्रोजेक्ट से संबंधित नहीं है",
+    "alert_unrelated_image_desc": "अपलोड की गई फ़ाइल में आईरिस फूल की कोई विशेषता नहीं मिली। इसे आरेख, दस्तावेज़ या गैर-वानस्पतिक ग्राफिक के रूप में पहचाना गया है। कृपया आईरिस फूल की असली तस्वीर अपलोड करें।",
+    "badge_unrecognized_image": "असंबंधित छवि",
+    "btn_try_another_photo": "फूल की फोटो अपलोड करें",
+    "alert_requirements_title": "फूल छवि आवश्यकताएं",
+    "alert_requirements_guide": "कृपया एक प्राकृतिक आईरिस फूल की तस्वीर अपलोड करें जिसमें पंखुड़ियां (बैंगनी, नीली, लैवेंडर या सुनहरी) और हरी पत्तियां दिखाई दें।"
   },
   "ta": {
     "app_title": "ஐரிஸ்ML ஸ்டுடியோ",
@@ -895,7 +913,13 @@ export const translations: Record<LanguageKey, Record<string, string>> = {
     "btn_create_account": "கணக்கை உருவாக்கவும்",
     "btn_try_demo_account": "டெமோ கணக்கை முயற்சிக்கவும் (உடனடி அணுகல்)",
     "no_account_yet": "கணக்கு இல்லையா?",
-    "already_have_account": "ஏற்கனவே கணக்கு உள்ளதா?"
+    "already_have_account": "ஏற்கனவே கணக்கு உள்ளதா?",
+    "alert_unrelated_image_title": "எச்சரிக்கை: படம் திட்டத்துடன் தொடர்புடையது அல்ல",
+    "alert_unrelated_image_desc": "பதிவேற்றப்பட்ட படம் ஐரிస్ மலராக அடையாளம் காணப்படவில்லை. இது வரைபடம், ஆவணம் அல்லது தாவரவியல் அல்லாத படமாகத் தெரிகிறது. தயவுசெய்து ஐரிஸ் மலரின் உண்மையான புகைப்படத்தைப் பதிவேற்றவும்.",
+    "badge_unrecognized_image": "தொடர்பற்ற படம்",
+    "btn_try_another_photo": "மலர் புகைப்படத்தைப் பதிவேற்றவும்",
+    "alert_requirements_title": "மலர் படத் தேவைகள்",
+    "alert_requirements_guide": "இதழ்கள் (ஊதா, நீலம் அல்லது மஞ்சள்) மற்றும் பச்சை இலைகளைக் காட்டும் உண்மையான ஐரிஸ் மலர் புகைப்படத்தைப் பதிவேற்றவும்."
   },
   "kn": {
     "app_title": "ಐರಿಸ್ML ಸ್ಟುಡಿಯೋ",
@@ -1117,6 +1141,12 @@ export const translations: Record<LanguageKey, Record<string, string>> = {
     "btn_create_account": "ಖಾತೆ ರಚಿಸಿ",
     "btn_try_demo_account": "ಡೆಮೊ ಖಾತೆ ಪ್ರಯತ್ನಿಸಿ (ತ್ವರಿತ ಪ್ರವೇಶ)",
     "no_account_yet": "ಖಾತೆ ಇಲ್ಲವೇ?",
-    "already_have_account": "ಈಗಾಗಲೇ ಖಾತೆ ಇದೆಯೇ?"
+    "already_have_account": "ಈಗಾಗಲೇ ಖಾತೆ ಇದೆಯೇ?",
+    "alert_unrelated_image_title": "ಎಚ್ಚರಿಕೆ: ಚಿತ್ರವು ಪ್ರಾಜೆಕ್ಟ್‌ಗೆ ಸಂಬಂಧಿಸಿಲ್ಲ",
+    "alert_unrelated_image_desc": "ಅಪ್‌ಲೋಡ್ ಮಾಡಿದ ಫೈಲ್ ಐರಿಸ್ ಹೂವಿನ ಲಕ್ಷಣಗಳನ್ನು ಹೊಂದಿಲ್ಲ. ಇದು ರೇಖಾಚಿತ್ರ, ದಾಖಲೆ ಅಥವಾ ಸಸ್ಯವಲ್ಲದ ಚಿತ್ರವೆಂದು ಗುರುತಿಸಲಾಗಿದೆ. ದಯವಿಟ್ಟು ನಿಜವಾದ ಐರಿಸ್ ಹೂವಿನ ಛಾಯಾಚಿತ್ರವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ.",
+    "badge_unrecognized_image": "ಸಂಬಂಧವಿಲ್ಲದ ಚಿತ್ರ",
+    "btn_try_another_photo": "ಹೂವಿನ ಫೋಟೋ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ",
+    "alert_requirements_title": "ಹೂವಿನ ಚಿತ್ರದ ಅವಶ್ಯಕತೆಗಳು",
+    "alert_requirements_guide": "ದಯವಿಟ್ಟು ದಳಗಳು (ನೇರಳೆ, ನೀಲಿ ಅಥವಾ ಹಳದಿ ಗುರುತುಗಳು) ಮತ್ತು ಹಸಿರು ಎಲೆಗಳನ್ನು ತೋರಿಸುವ ನೈಸರ್ಗಿಕ ಐರಿಸ್ ಹೂವಿನ ಫೋಟೋವನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ."
   }
 };

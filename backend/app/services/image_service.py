@@ -110,7 +110,7 @@ class ImageService:
                 "is_suitable": False,
                 "error": "Image appears to be flat or blank with negligible visual texture.",
                 "predicted_species": "Unclear / Non-Flower Image",
-                "confidence": 0.05,
+                "confidence": 0.0,
                 "flower_info": {},
                 "possible_disease": {
                     "issue_detected": "Non-Informative Image",
@@ -118,13 +118,114 @@ class ImageService:
                     "confidence": 0.0,
                     "visual_indicators": ["Near-zero color variance across canvas"],
                     "suggested_actions": ["Upload a clear photograph of an Iris flower in natural lighting."]
-                }
+                },
+                "alert": {
+                    "title": "Blank or Flat Image Detected",
+                    "message": "The uploaded image appears to be a blank or uniform canvas with no botanical content.",
+                    "type": "warning",
+                    "is_unrelated": True,
+                    "suggested_action": "Please upload a clear photograph of an Iris flower."
+                },
+                "model_pipeline": "Dedicated Computer Vision Iris Analysis Service"
             }
 
-        # Analyze color spectrum and texture
-        # Violet/Blue hues: high B, moderate R, lower G
-        # Yellow/Gold throat: high R, high G, low B
-        # Green foliage: high G
+        # Numpy-based botanical & chromatic inspection
+        import numpy as np
+        arr = np.array(rgb_img).astype(float)
+        r, g, b = arr[:, :, 0], arr[:, :, 1], arr[:, :, 2]
+
+        # 1. Background Brightness (Documents, diagrams, schematics, charts usually have pure/near-white backgrounds)
+        white_bg_ratio = float(np.mean((r > 215) & (g > 215) & (b > 215)))
+
+        # 2. Chroma / Color Saturation
+        chroma = np.maximum(np.maximum(r, g), b) - np.minimum(np.minimum(r, g), b)
+        mean_chroma = float(np.mean(chroma))
+        colored_pixel_ratio = float(np.mean(chroma > 20))
+
+        # 3. Botanical / Floral specific color spectrums
+        # Blue / Violet / Purple (Iris standard / falls / petals)
+        is_blue_violet = ((b > g + 12) & (b > 45)) | ((r > g + 10) & (b > g + 10) & (b > 50))
+        # Green vegetative foliage / sepals / stem / garden background
+        is_green = (g > r + 12) & (g > b + 12) & (g > 35)
+        # Yellow / Gold signal patch on iris falls
+        is_yellow = (r > 110) & (g > 90) & (b < np.minimum(r, g) - 20)
+
+        botanical_mask = (is_blue_violet | is_green | is_yellow) & (chroma > 18)
+        botanical_ratio = float(np.mean(botanical_mask))
+
+        # Check A: Diagram, Flowchart, Schematic, or Document screenshot
+        if white_bg_ratio > 0.55 and botanical_ratio < 0.15:
+            return {
+                "is_suitable": False,
+                "error": "The uploaded file appears to be a diagram, flowchart, or document screenshot rather than a floral photograph.",
+                "predicted_species": "Unrecognized / Not an Iris Flower",
+                "confidence": 0.0,
+                "flower_info": {},
+                "possible_disease": {
+                    "issue_detected": "Analysis Inapplicable (Non-Botanical Image)",
+                    "disclaimer": "Foliar health screening is only available for authentic botanical photographs of Iris flowers.",
+                    "visual_indicators": ["Image lacks botanical plant tissue, floral petals, or sepals."],
+                    "suggested_actions": ["Upload an authentic full-color close-up photograph of an Iris flower."]
+                },
+                "alert": {
+                    "title": "Diagram or Document Detected",
+                    "message": "The uploaded image appears to be a diagram, schematic, or document screenshot. The AI Flower Image Analyzer is specialized for Iris flower species classification.",
+                    "type": "warning",
+                    "is_unrelated": True,
+                    "suggested_action": "Please upload a clear photograph of an Iris flower (Iris setosa, Iris versicolor, or Iris virginica)."
+                },
+                "model_pipeline": "Dedicated Computer Vision Iris Analysis Service"
+            }
+
+        # Check B: Monochrome, Black & White Sketch, or Grayscale Image
+        if colored_pixel_ratio < 0.10 or mean_chroma < 12.0:
+            return {
+                "is_suitable": False,
+                "error": "The uploaded image is grayscale or monochromatic without floral pigmentation.",
+                "predicted_species": "Unrecognized / Non-Flower Image",
+                "confidence": 0.0,
+                "flower_info": {},
+                "possible_disease": {
+                    "issue_detected": "Analysis Inapplicable (Monochrome Image)",
+                    "disclaimer": "Color spectrum analysis requires full-color floral photography.",
+                    "visual_indicators": ["Near-zero chromatic saturation across the canvas."],
+                    "suggested_actions": ["Provide a color photograph taken in natural daylight."]
+                },
+                "alert": {
+                    "title": "Monochrome or Sketch Image Detected",
+                    "message": "The uploaded image is grayscale or monochromatic without floral pigmentation. Please upload a full-color photograph of an Iris flower.",
+                    "type": "warning",
+                    "is_unrelated": True,
+                    "suggested_action": "Please upload a color photograph showing petals and green sepals."
+                },
+                "model_pipeline": "Dedicated Computer Vision Iris Analysis Service"
+            }
+
+        # Check C: Unrelated Non-Botanical Image (no floral petals or plant foliage)
+        if botanical_ratio < 0.12:
+            return {
+                "is_suitable": False,
+                "error": "The uploaded image does not contain recognizable Iris floral or botanical characteristics.",
+                "predicted_species": "Unrecognized / Not an Iris Flower",
+                "confidence": 0.0,
+                "flower_info": {},
+                "possible_disease": {
+                    "issue_detected": "Analysis Inapplicable (Non-Botanical Image)",
+                    "disclaimer": "No botanical Iris floral features could be reliably identified.",
+                    "visual_indicators": ["Absence of Iris petal pigmentation or foliar foliage structures."],
+                    "suggested_actions": ["Upload a photo of an Iris flower (Iris-setosa, Iris-versicolor, or Iris-virginica)."]
+                },
+                "alert": {
+                    "title": "Unrelated Image Detected",
+                    "message": "The uploaded image does not appear to be an Iris flower or botanical photograph. The AI Flower Image Analyzer is specialized exclusively for Iris flower classification.",
+                    "type": "warning",
+                    "is_unrelated": True,
+                    "suggested_action": "Please upload a clear photograph of an Iris flower."
+                },
+                "model_pipeline": "Dedicated Computer Vision Iris Analysis Service"
+            }
+
+        # Analyze color spectrum and texture for valid flower images
         blue_purple_ratio = (mean_b + mean_r * 0.7) / (mean_g + 1e-5)
         saturation_est = max(mean_r, mean_g, mean_b) - min(mean_r, mean_g, mean_b)
 

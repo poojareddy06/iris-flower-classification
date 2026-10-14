@@ -115,6 +115,7 @@ class ImageAnalysisResponse(BaseModel):
     possible_disease: Dict[str, Any]
     model_pipeline: str = "Computer Vision Flower Analysis Engine (Separated from Tabular Decision Tree)"
     created_at: Optional[datetime] = None
+    alert: Optional[Dict[str, Any]] = None
 
 # --- AI Chat ---
 class ChatMessageRequest(BaseModel):

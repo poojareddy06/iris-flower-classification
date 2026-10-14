@@ -73,7 +73,8 @@ async def analyze_flower(
         "flower_info": record.flower_info,
         "possible_disease": record.possible_disease,
         "model_pipeline": analysis.get("model_pipeline", "Computer Vision Iris Analyzer"),
-        "created_at": record.created_at
+        "created_at": record.created_at,
+        "alert": analysis.get("alert")
     }
 
 @router.get("/file/{filename}")

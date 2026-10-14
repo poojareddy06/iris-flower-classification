@@ -121,6 +121,14 @@ export interface PossibleDisease {
   suggested_actions: string[];
 }
 
+export interface ImageAlert {
+  title: string;
+  message: string;
+  type?: 'warning' | 'error' | 'info';
+  is_unrelated?: boolean;
+  suggested_action?: string;
+}
+
 export interface ImageAnalysisResult {
   id?: number;
   image_url: string;
@@ -132,6 +140,7 @@ export interface ImageAnalysisResult {
   possible_disease: PossibleDisease;
   model_pipeline: string;
   created_at?: string;
+  alert?: ImageAlert;
 }
 
 export interface SlideData {
