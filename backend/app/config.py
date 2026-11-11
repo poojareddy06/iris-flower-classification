@@ -2,6 +2,23 @@ import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Lightweight .env loader (loads root or backend .env if present)
+for env_path in [BASE_DIR.parent / ".env", BASE_DIR / ".env"]:
+    if env_path.exists():
+        try:
+            with open(env_path, "r", encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if line and not line.startswith("#") and "=" in line:
+                        k, v = line.split("=", 1)
+                        k = k.strip()
+                        v = v.strip().strip("'\"")
+                        if k and k not in os.environ:
+                            os.environ[k] = v
+        except Exception:
+            pass
+
 DATA_DIR = BASE_DIR / "data"
 MODELS_DIR = BASE_DIR / "saved_models"
 UPLOADS_DIR = BASE_DIR / "uploads"
