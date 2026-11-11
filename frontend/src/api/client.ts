@@ -9,7 +9,8 @@ import {
   ChatMessage
 } from '../types';
 
-const API_BASE = '/api';
+const rawBaseUrl = (import.meta.env.VITE_API_BASE_URL as string | undefined)?.replace(/\/$/, '') || '';
+const API_BASE = rawBaseUrl ? `${rawBaseUrl}/api` : '/api';
 
 function getAuthHeader(): Record<string, string> {
   const token = localStorage.getItem('iris_token');
@@ -243,7 +244,10 @@ export const api = {
   // Export
   export: {
     predictionsCSVUrl: () => `${API_BASE}/export/predictions`,
+    predictionsPDFUrl: () => `${API_BASE}/export/predictions/pdf`,
     getModelReport: (modelId: number) => request<any>(`/export/model-report/${modelId}`),
     modelReportHtmlUrl: (modelId: number) => `${API_BASE}/export/model-report/${modelId}/html`,
+    modelReportPDFUrl: (modelId: number) => `${API_BASE}/export/model-report/${modelId}/pdf`,
+    datasetSummaryPDFUrl: (datasetId: number) => `${API_BASE}/export/dataset/${datasetId}/summary/pdf`,
   },
 };

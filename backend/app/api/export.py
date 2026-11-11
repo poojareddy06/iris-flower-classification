@@ -5,8 +5,9 @@ from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import Response
 from sqlalchemy.orm import Session
 from app.database import get_db
-from app.models import Prediction, MLModel, User
+from app.models import Prediction, MLModel, User, Dataset
 from app.utils.auth import get_current_user_optional
+from app.services.pdf_service import PDFReportService
 
 router = APIRouter(prefix="/export", tags=["Export"])
 
@@ -45,6 +46,98 @@ def export_predictions_csv(
         content=csv_data,
         media_type="text/csv",
         headers={"Content-Disposition": "attachment; filename=iris_predictions_export.csv"}
+    )
+
+@router.get("/predictions/pdf")
+def export_predictions_pdf(
+    current_user: Optional[User] = Depends(get_current_user_optional),
+    db: Session = Depends(get_db)
+):
+    query = db.query(Prediction)
+    if current_user:
+        query = query.filter((Prediction.user_id == current_user.id) | (Prediction.user_id == None))
+    else:
+        query = query.filter(Prediction.user_id == None)
+
+    preds = query.order_by(Prediction.id.desc()).all()
+    pred_dicts = [
+        {
+            "id": p.id,
+            "sepal_length": p.sepal_length,
+            "sepal_width": p.sepal_width,
+            "petal_length": p.petal_length,
+            "petal_width": p.petal_width,
+            "predicted_species": p.predicted_species,
+            "confidence": p.confidence,
+            "created_at": p.created_at.strftime("%Y-%m-%d %H:%M:%S") if p.created_at else ""
+        }
+        for p in preds
+    ]
+    pdf_bytes = PDFReportService.generate_predictions_pdf(pred_dicts)
+    return Response(
+        content=pdf_bytes,
+        media_type="application/pdf",
+        headers={"Content-Disposition": "attachment; filename=iris_predictions_history.pdf"}
+    )
+
+@router.get("/model-report/{model_id}/pdf")
+def export_model_report_pdf(
+    model_id: int,
+    db: Session = Depends(get_db)
+):
+    model = db.query(MLModel).filter(MLModel.id == model_id).first()
+    if not model:
+        raise HTTPException(status_code=404, detail="Model not found.")
+
+    model_dict = {
+        "id": model.id,
+        "model_name": model.model_name,
+        "algorithm": model.algorithm,
+        "criterion": model.criterion,
+        "test_size": model.test_size,
+        "random_state": model.random_state,
+        "hyperparameters": model.hyperparameters or {},
+        "accuracy": model.accuracy,
+        "precision": model.precision,
+        "recall": model.recall,
+        "f1_score": model.f1_score,
+        "feature_importances": model.feature_importances or {},
+        "confusion_matrix": model.confusion_matrix or [],
+        "target_names": model.target_names or ['Iris-setosa', 'Iris-versicolor', 'Iris-virginica'],
+        "classification_report": model.classification_report or {}
+    }
+    pdf_bytes = PDFReportService.generate_model_report_pdf(model_dict)
+    return Response(
+        content=pdf_bytes,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f"attachment; filename=iris_model_{model_id}_report.pdf"}
+    )
+
+@router.get("/dataset/{dataset_id}/summary/pdf")
+def export_dataset_summary_pdf(
+    dataset_id: int,
+    db: Session = Depends(get_db)
+):
+    ds = db.query(Dataset).filter(Dataset.id == dataset_id).first()
+    if not ds:
+        raise HTTPException(status_code=404, detail="Dataset not found.")
+
+    ds_dict = {
+        "id": ds.id,
+        "filename": ds.filename,
+        "row_count": ds.row_count,
+        "col_count": ds.col_count,
+        "duplicate_rows": ds.duplicate_rows,
+        "is_valid": ds.is_valid,
+        "validation_message": ds.validation_message,
+        "class_distribution": ds.class_distribution or {},
+        "missing_values": ds.missing_values or {}
+    }
+    pdf_bytes = PDFReportService.generate_dataset_summary_pdf(ds_dict)
+    return Response(
+        content=pdf_bytes,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f"attachment; filename=iris_dataset_{dataset_id}_summary.pdf"}
     )
 
 @router.get("/model-report/{model_id}")

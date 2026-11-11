@@ -313,10 +313,19 @@ export const ImageAnalyzerPage: React.FC = () => {
                     <h2 className="text-2xl sm:text-3xl font-black text-white">
                       {analysis.predicted_species}
                     </h2>
-                    <span className="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                    <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+                      analysis.is_reliable === false
+                        ? 'bg-amber-500/15 text-amber-300 border border-amber-500/30'
+                        : 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30'
+                    }`}>
                       {(analysis.confidence * 100).toFixed(0)}% {t('confidence_score_label')}
                     </span>
                   </div>
+                  {analysis.is_reliable === false && (
+                    <div className="mt-2 p-3 bg-amber-500/10 border border-amber-500/20 rounded-xl text-xs text-amber-300">
+                      ⚠️ Identification uncertainty: The floral features in this image do not clearly match known benchmark Iris thresholds. Flower information is displayed only when identification is sufficiently reliable.
+                    </div>
+                  )}
                   {analysis.flower_info?.common_name && (
                     <p className="text-xs text-iris-300 font-semibold mt-1">
                       {analysis.flower_info.common_name} •{' '}
@@ -363,51 +372,36 @@ export const ImageAnalyzerPage: React.FC = () => {
                   <div className="space-y-3 pt-3 border-t border-slate-800">
                     <div className="flex items-center justify-between">
                       <span className="font-bold uppercase tracking-wider text-slate-400 text-[11px]">
-                        {t('foliar_health_title')}
+                        Flower Disease Detection Status
                       </span>
-                      {analysis.possible_disease.confidence_score && (
-                        <span className="text-[10px] font-bold text-slate-400">
-                          {t('confidence_score_label')}: {(analysis.possible_disease.confidence_score * 100).toFixed(0)}%
-                        </span>
-                      )}
+                      <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700">
+                        {analysis.possible_disease.status || (analysis.possible_disease.is_configured ? 'Configured' : 'Not Configured')}
+                      </span>
                     </div>
 
                     <div className="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2.5">
                       <div className="flex items-center gap-2">
-                        {analysis.possible_disease.issue_detected.includes('No Visible') ? (
-                          <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                        ) : (
-                          <AlertTriangle className="w-4 h-4 text-amber-400" />
-                        )}
-                        <span className="font-bold text-xs text-white">
+                        <Info className="w-4 h-4 text-slate-400" />
+                        <span className="font-bold text-xs text-slate-200">
                           {analysis.possible_disease.issue_detected}
                         </span>
                       </div>
 
-                      {/* Visual Indicators */}
-                      <div className="space-y-1 pl-6">
-                        {analysis.possible_disease.visual_indicators?.map((ind, idx) => (
-                          <p key={idx} className="text-[11px] text-slate-300">
-                            • {ind}
-                          </p>
-                        ))}
-                      </div>
-
                       {/* Disclaimer Banner */}
-                      <div className="p-2.5 bg-amber-500/10 rounded-xl border border-amber-500/20 text-[11px] text-amber-300 leading-relaxed">
+                      <div className="p-3 bg-slate-900 rounded-xl border border-slate-800 text-[11px] text-slate-300 leading-relaxed">
                         {analysis.possible_disease.disclaimer}
                       </div>
 
-                      {/* Next Steps / Recommendations */}
+                      {/* Suggested Actions if configured or educational guide */}
                       {analysis.possible_disease.suggested_actions && (
                         <div className="pt-2 border-t border-slate-800/80">
                           <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
                             {t('recommended_care')}
                           </span>
-                          <ul className="space-y-1 text-[11px] text-slate-300">
+                          <ul className="space-y-1 text-[11px] text-slate-400">
                             {analysis.possible_disease.suggested_actions.map((act, idx) => (
                               <li key={idx} className="flex items-start gap-1.5">
-                                <span className="text-emerald-400 font-bold">✓</span>
+                                <span className="text-slate-500 font-bold">•</span>
                                 <span>{act}</span>
                               </li>
                             ))}

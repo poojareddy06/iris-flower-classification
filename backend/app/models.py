@@ -23,6 +23,7 @@ class User(Base):
     predictions = relationship("Prediction", back_populates="user", cascade="all, delete-orphan")
     image_analyses = relationship("ImageAnalysis", back_populates="user", cascade="all, delete-orphan")
     chat_messages = relationship("ChatMessage", back_populates="user", cascade="all, delete-orphan")
+    chat_sessions = relationship("ChatSession", back_populates="user", cascade="all, delete-orphan")
 
 class Dataset(Base):
     __tablename__ = "datasets"
@@ -126,3 +127,14 @@ class ChatMessage(Base):
     created_at = Column(DateTime, default=utc_now)
 
     user = relationship("User", back_populates="chat_messages")
+
+class ChatSession(Base):
+    __tablename__ = "chat_sessions"
+
+    id = Column(String(100), primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
+    title = Column(String(255), default="Iris AI Chat Session")
+    created_at = Column(DateTime, default=utc_now)
+    updated_at = Column(DateTime, default=utc_now, onupdate=utc_now)
+
+    user = relationship("User", back_populates="chat_sessions")

@@ -45,10 +45,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentPage }) => {
           <div>
             <div className="flex items-center gap-2">
               <span className="font-extrabold text-base tracking-tight text-white">
-                Iris<span className="text-iris-400">ML</span> Studio
+                Iris<span className="text-iris-400"> AI</span>
               </span>
               <span className="text-[10px] font-bold tracking-wider uppercase bg-iris-500/20 text-iris-300 px-2 py-0.5 rounded-full border border-iris-500/30">
-                v2.0 Decision Tree
+                Decision Tree ML
               </span>
             </div>
             <p className="text-[10px] text-slate-400 hidden sm:block">

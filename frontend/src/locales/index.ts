@@ -10,8 +10,9 @@ export const LANGUAGES: Record<LanguageKey, { label: string; native: string }> =
 
 export const translations: Record<LanguageKey, Record<string, string>> = {
   "en": {
-    "app_title": "IrisML Studio",
-    "app_subtitle": "AI Decision Tree Classification & Botanical Intelligence",
+    "app_title": "Iris AI – Intelligent Flower Classification and Analysis Platform",
+    "app_short_title": "Iris AI",
+    "app_subtitle": "An intelligent flower classification and analysis platform powered by machine learning.",
     "main_features": "Main Features",
     "nav_dashboard": "Dashboard",
     "nav_predict": "Predict Flower",
@@ -21,6 +22,7 @@ export const translations: Record<LanguageKey, Record<string, string>> = {
     "nav_analytics": "Model Analytics",
     "nav_history": "Prediction History",
     "nav_ai_assistant": "Iris AI Assistant",
+    "nav_education": "ML Education & Workflow",
     "nav_settings": "Settings",
     "nav_admin": "Admin Console",
     "nav_login": "Sign In",
@@ -238,8 +240,9 @@ export const translations: Record<LanguageKey, Record<string, string>> = {
     "alert_requirements_guide": "Please upload a natural close-up photograph of an Iris flower showing petals (violet, purple, lavender, or gold signal) and green sepals or foliage."
   },
   "te": {
-    "app_title": "ఐరిస్ML స్టూడియో",
-    "app_subtitle": "AI డెసిషన్ ట్రీ వర్గీకరణ & బొటానికల్ ఇంటెలిజెన్స్",
+    "app_title": "ఐరిస్ AI – ఇంటెలిజెంట్ ఫ్లవర్ క్లాసిఫికేషన్ మరియు అనాలిసిస్ ప్లాట్‌ఫామ్",
+    "app_short_title": "ఐరిస్ AI",
+    "app_subtitle": "మెషిన్ లెర్నింగ్ ఆధారిత మేధోపరమైన పుష్ప వర్గీకరణ మరియు విశ్లేషణ వేదిక.",
     "main_features": "ప్రధాన ఫీచర్లు",
     "nav_dashboard": "డ్యాష్‌బోర్డ్",
     "nav_predict": "పూల అంచనా",
@@ -249,6 +252,7 @@ export const translations: Record<LanguageKey, Record<string, string>> = {
     "nav_analytics": "మోడల్ అనలిటిక్స్",
     "nav_history": "అంచనాల చరిత్ర",
     "nav_ai_assistant": "ఐరిస్ AI అసిస్టెంట్",
+    "nav_education": "ML విద్య & వర్క్‌ఫ్లో",
     "nav_settings": "సెట్టింగులు",
     "nav_admin": "అడ్మిన్ కన్సోల్",
     "nav_login": "లాగిన్",
@@ -466,8 +470,9 @@ export const translations: Record<LanguageKey, Record<string, string>> = {
     "alert_requirements_guide": "దయచేసి రేకులు (నీలం, ఊదా, లావెండర్ లేదా పసుపు రంగు) మరియు ఆకుపచ్చ ఆకులు ఉన్న ఐరిస్ పువ్వు ఫోటోను అప్‌లోడ్ చేయండి."
   },
   "hi": {
-    "app_title": "आइरिसML स्टूडियो",
-    "app_subtitle": "एआई डिसीजन ट्री वर्गीकरण एवं वानस्पतिक बुद्धिमत्ता",
+    "app_title": "आइरिस एआई – इंटेलिजेंट फ्लावर क्लासिफिकेशन और एनालिसिस प्लेटफॉर्म",
+    "app_short_title": "आइरिस एआई",
+    "app_subtitle": "मशीन लर्निंग द्वारा संचालित एक बुद्धिमान फूल वर्गीकरण और विश्लेषण मंच।",
     "main_features": "मुख्य विशेषताएं",
     "nav_dashboard": "डैशबोर्ड",
     "nav_predict": "फूल भविष्यवाणी",
@@ -477,6 +482,7 @@ export const translations: Record<LanguageKey, Record<string, string>> = {
     "nav_analytics": "मॉडल एनालिटिक्स",
     "nav_history": "भविष्यवाणी इतिहास",
     "nav_ai_assistant": "आइरिस एआई सहायक",
+    "nav_education": "एमएल शिक्षा और वर्कफ़्लो",
     "nav_settings": "सेटिंग्स",
     "nav_admin": "एडमिन कंसोल",
     "nav_login": "लॉग इन",
@@ -694,8 +700,9 @@ export const translations: Record<LanguageKey, Record<string, string>> = {
     "alert_requirements_guide": "कृपया एक प्राकृतिक आईरिस फूल की तस्वीर अपलोड करें जिसमें पंखुड़ियां (बैंगनी, नीली, लैवेंडर या सुनहरी) और हरी पत्तियां दिखाई दें।"
   },
   "ta": {
-    "app_title": "ஐரிஸ்ML ஸ்டுடியோ",
-    "app_subtitle": "AI முடிவு மரம் வகைப்பாடு & தாவரவியல் நுண்ணறிவு",
+    "app_title": "ஐரிஸ் AI – அறிவார்ந்த மலர் வகைப்பாடு மற்றும் பகுப்பாய்வு தளம்",
+    "app_short_title": "ஐரிஸ் AI",
+    "app_subtitle": "இயந்திர கற்றல் மூலம் இயங்கும் ஒரு அறிவார்ந்த மலர் வகைப்பாடு மற்றும் பகுப்பாய்வு தளம்.",
     "main_features": "முக்கிய அம்சங்கள்",
     "nav_dashboard": "டாஷ்போர்டு",
     "nav_predict": "மலர் கணிப்பு",
@@ -705,6 +712,7 @@ export const translations: Record<LanguageKey, Record<string, string>> = {
     "nav_analytics": "மாதிரி பகுப்பாய்வு",
     "nav_history": "கணிப்பு வரலாறு",
     "nav_ai_assistant": "ஐரிஸ் AI உதவியாளர்",
+    "nav_education": "ML கல்வி & பணிப்பாய்வு",
     "nav_settings": "அமைப்புகள்",
     "nav_admin": "நிர்வாகக் குழு",
     "nav_login": "உள்நுழைய",
@@ -922,8 +930,9 @@ export const translations: Record<LanguageKey, Record<string, string>> = {
     "alert_requirements_guide": "இதழ்கள் (ஊதா, நீலம் அல்லது மஞ்சள்) மற்றும் பச்சை இலைகளைக் காட்டும் உண்மையான ஐரிஸ் மலர் புகைப்படத்தைப் பதிவேற்றவும்."
   },
   "kn": {
-    "app_title": "ಐರಿಸ್ML ಸ್ಟುಡಿಯೋ",
-    "app_subtitle": "AI ಡಿಸಿಷನ್ ಟ್ರೀ ವರ್ಗೀಕರಣ & ಬೊಟಾನಿಕಲ್ ಇಂಟೆಲಿಜೆನ್ಸ್",
+    "app_title": "ಐರಿಸ್ AI – ಇಂಟೆಲಿಜೆಂಟ್ ಫ್ಲವರ್ ಕ್ಲಾಸಿಫಿಕೇಶನ್ ಮತ್ತು ಅನಾಲಿಸಿಸ್ ಪ್ಲಾಟ್‌ಫಾರ್ಮ್",
+    "app_short_title": "ಐರಿಸ್ AI",
+    "app_subtitle": "ಮೆಷಿನ್ ಲರ್ನಿಂಗ್ ಆಧಾರಿತ ಹೂವಿನ ವರ್ಗೀಕರಣ ಮತ್ತು ವಿಶ್ಲೇಷಣಾ ವೇದಿಕೆ.",
     "main_features": "ಮುಖ್ಯ ವೈಶಿಷ್ಟ್ಯಗಳು",
     "nav_dashboard": "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್",
     "nav_predict": "ಹೂವಿನ ಊಹೆ",
@@ -933,6 +942,7 @@ export const translations: Record<LanguageKey, Record<string, string>> = {
     "nav_analytics": "ಮಾದರಿ ಅನಾಲಿಟಿಕ್ಸ್",
     "nav_history": "ಮುನ್ಸೂಚನೆ ಇತಿಹಾಸ",
     "nav_ai_assistant": "ಐರಿಸ್ AI ಸಹಾಯಕ",
+    "nav_education": "ML ಶಿಕ್ಷಣ ಮತ್ತು ಕಾರ್ಯವಿಧಾನ",
     "nav_settings": "ಸಂಯೋಜನೆಗಳು",
     "nav_admin": "ನಿರ್ವಾಹಕ ಫಲಕ",
     "nav_login": "ಲಾಗಿನ್",

@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgAnatomy" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <linearGradient id="petalGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+    <linearGradient id="sepalGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#4338ca"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="360" rx="20" fill="url(#bgAnatomy)"/>
+  
+  <!-- Flower Illustration in Center -->
+  <!-- Stem -->
+  <path d="M 300 200 L 300 340" stroke="#10b981" stroke-width="8" stroke-linecap="round"/>
+  <!-- Standards (Petals - Upright) -->
+  <path d="M 300 170 C 275 100 280 40 300 30 C 320 40 325 100 300 170 Z" fill="url(#petalGrad)" stroke="#c4b5fd" stroke-width="2"/>
+  <path d="M 285 175 C 245 110 240 70 265 50 C 280 75 290 120 285 175 Z" fill="url(#petalGrad)" stroke="#c4b5fd" stroke-width="1.5" opacity="0.9"/>
+  <path d="M 315 175 C 355 110 360 70 335 50 C 320 75 310 120 315 175 Z" fill="url(#petalGrad)" stroke="#c4b5fd" stroke-width="1.5" opacity="0.9"/>
+  
+  <!-- Falls (Sepals - Drooping/Spreading) -->
+  <path d="M 290 185 C 220 195 160 230 150 280 C 160 315 220 310 250 270 C 270 245 285 210 290 185 Z" fill="url(#sepalGrad)" stroke="#a5b4fc" stroke-width="2"/>
+  <path d="M 310 185 C 380 195 440 230 450 280 C 440 315 380 310 350 270 C 330 245 315 210 310 185 Z" fill="url(#sepalGrad)" stroke="#a5b4fc" stroke-width="2"/>
+  <path d="M 275 190 C 240 230 245 290 275 330 C 300 350 325 330 355 290 C 360 230 325 190 275 190 Z" fill="url(#sepalGrad)" stroke="#a5b4fc" stroke-width="2"/>
+  
+  <!-- Golden Signal -->
+  <ellipse cx="300" cy="245" rx="14" ry="24" fill="#facc15"/>
+  <ellipse cx="215" cy="250" rx="12" ry="20" fill="#facc15" transform="rotate(-35 215 250)"/>
+  <ellipse cx="385" cy="250" rx="12" ry="20" fill="#facc15" transform="rotate(35 385 250)"/>
+  
+  <!-- Calyx -->
+  <circle cx="300" cy="190" r="10" fill="#059669"/>
+  
+  <!-- Dimension Callout 1: Petal Length & Width (Standards) -->
+  <line x1="300" y1="30" x2="110" y2="30" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="300" y1="170" x2="110" y2="170" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="120" y1="35" x2="120" y2="165" stroke="#a78bfa" stroke-width="2"/>
+  <polygon points="120,30 116,40 124,40" fill="#a78bfa"/>
+  <polygon points="120,170 116,160 124,160" fill="#a78bfa"/>
+  <rect x="25" y="80" width="120" height="40" rx="8" fill="#1e1b4b" stroke="#818cf8" stroke-width="1"/>
+  <text x="35" y="98" fill="#c4b5fd" font-family="sans-serif" font-size="11" font-weight="bold">PETAL LENGTH</text>
+  <text x="35" y="112" fill="#94a3b8" font-family="sans-serif" font-size="10">Inner Standards</text>
+
+  <!-- Dimension Callout 2: Sepal Length & Width (Falls) -->
+  <line x1="350" y1="270" x2="520" y2="270" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="310" y1="185" x2="520" y2="185" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="510" y1="190" x2="510" y2="265" stroke="#38bdf8" stroke-width="2"/>
+  <polygon points="510,185 506,195 514,195" fill="#38bdf8"/>
+  <polygon points="510,270 506,260 514,260" fill="#38bdf8"/>
+  <rect x="450" y="210" width="125" height="40" rx="8" fill="#082f49" stroke="#38bdf8" stroke-width="1"/>
+  <text x="460" y="228" fill="#7dd3fc" font-family="sans-serif" font-size="11" font-weight="bold">SEPAL LENGTH</text>
+  <text x="460" y="242" fill="#94a3b8" font-family="sans-serif" font-size="10">Outer Calyx / Falls</text>
+
+  <!-- Title Badge -->
+  <rect x="180" y="15" width="240" height="28" rx="14" fill="#312e81" stroke="#6366f1" stroke-width="1"/>
+  <text x="210" y="34" fill="#e0e7ff" font-family="sans-serif" font-size="12" font-weight="bold">Iris Flower Botanical Anatomy</text>
+</svg>

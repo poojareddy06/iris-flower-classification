@@ -113,6 +113,8 @@ export interface FlowerKnowledge {
 
 export interface PossibleDisease {
   issue_detected: string;
+  is_configured?: boolean;
+  status?: string;
   observation_status?: string;
   visual_indicators: string[];
   confidence_score?: number;
@@ -135,6 +137,7 @@ export interface ImageAnalysisResult {
   predicted_species: string;
   confidence: number;
   is_suitable: boolean;
+  is_reliable?: boolean;
   dimensions?: { width: number; height: number };
   flower_info: FlowerKnowledge;
   possible_disease: PossibleDisease;

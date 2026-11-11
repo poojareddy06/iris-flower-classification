@@ -70,6 +70,7 @@ async def analyze_flower(
         "predicted_species": record.predicted_species,
         "confidence": record.confidence,
         "is_suitable": record.is_suitable,
+        "is_reliable": analysis.get("is_reliable", True),
         "flower_info": record.flower_info,
         "possible_disease": record.possible_disease,
         "model_pipeline": analysis.get("model_pipeline", "Computer Vision Iris Analyzer"),
@@ -93,7 +94,7 @@ def get_image_history(
 ):
     query = db.query(ImageAnalysis)
     if current_user:
-        query = query.filter((ImageAnalysis.user_id == current_user.id) | (ImageAnalysis.user_id == None))
+        query = query.filter(ImageAnalysis.user_id == current_user.id)
     else:
         query = query.filter(ImageAnalysis.user_id == None)
 

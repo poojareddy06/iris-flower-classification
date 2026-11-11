@@ -57,8 +57,12 @@ The application is structured into clearly separated architectural tiers:
 
 ### 1. 🔐 Authentication & Session Security
 - User registration and login with bcrypt password hashing and PyJWT tokens.
-- **One-Click Demo Mode**: Reviewers and evaluators can explore the platform instantly with pre-seeded datasets and trained models without manual registration.
+- **Pre-Seeded Credentials** for instant local testing:
+  - **Administrator Console:** `admin@irislab.ai` / `password123` (Role: `admin`)
+  - **Researcher / Demo Account:** `demo@irislab.ai` / `password123` (Role: `user`)
+  - Or click **"Try Demo"** in the top navigation bar to explore the platform without typing credentials.
 - Role-based authorization: Admin console vs. researcher privileges.
+- User privacy isolation: Authenticated users only see and manage their own predictions, datasets, and vision history records.
 
 ### 2. 📊 Dataset Manager
 - Drag-and-drop CSV dataset upload with automated schema inspection.
@@ -186,7 +190,7 @@ npm run dev   # On Windows PowerShell if script execution is restricted: npm.cmd
 
 ## 🧪 Running the Test Suite
 
-A comprehensive automated test suite covers authentication, dataset inspection, ML training, inference, image analysis, and AI domain restrictions:
+A comprehensive automated test suite covers authentication, dataset inspection, ML training, inference, image analysis, AI domain restrictions, and end-to-end platform workflows:
 
 ```bash
 cd backend
@@ -195,13 +199,14 @@ python -m pytest tests
 
 Output:
 ```
-backend/tests/test_assistant.py ...    [ 25%]
-backend/tests/test_auth.py ...         [ 50%]
-backend/tests/test_dataset.py ..       [ 66%]
-backend/tests/test_image.py ..         [ 83%]
-backend/tests/test_ml.py .             [ 91%]
-backend/tests/test_prediction.py .     [100%]
-====================== 12 passed in ~3.8s =======================
+backend/tests/test_assistant.py ...        [ 16%]
+backend/tests/test_auth.py ...             [ 33%]
+backend/tests/test_dataset.py ..           [ 44%]
+backend/tests/test_e2e_platform.py ......  [ 77%]
+backend/tests/test_image.py ..             [ 88%]
+backend/tests/test_ml.py .                 [ 94%]
+backend/tests/test_prediction.py .         [100%]
+====================== 18 passed in ~5.2s =======================
 ```
 
 To verify the frontend TypeScript and build bundle:
@@ -209,6 +214,39 @@ To verify the frontend TypeScript and build bundle:
 cd frontend
 npm run build  # or: npm.cmd run build
 ```
+
+---
+
+## 🚢 Deployment Guide
+
+The application is structured for simple zero-dependency local runs and ready for cloud deployment:
+
+### 1. Frontend Deployment (Vercel)
+1. Link your GitHub repository to Vercel.
+2. Set Root Directory to `frontend`.
+3. Framework Preset: `Vite`.
+4. Build Command: `npm run build`.
+5. Output Directory: `dist`.
+6. Environment Variables:
+   - `VITE_API_BASE_URL`: URL of your deployed backend (e.g. `https://iris-ml-backend.onrender.com`).
+
+### 2. Backend Deployment (Render / Railway)
+1. Create a new **Web Service** on Render pointing to your GitHub repository.
+2. Root Directory: `backend`.
+3. Environment: `Python 3`.
+4. Build Command: `pip install -r requirements.txt`.
+5. Start Command: `uvicorn app.main:app --host 0.0.0.0 --port 10000`.
+6. Environment Variables:
+   - `DATABASE_URL`: Optional PostgreSQL URL for persistent storage (e.g., `postgresql://user:pass@ep-host.render.com/irisdb`). If omitted, uses local SQLite.
+   - `SECRET_KEY`: Secure random string for JWT token signatures.
+   - `AI_API_KEY`: *(Optional)* Gemini or Google API key for extended LLM queries. The platform functions 100% without an API key using the built-in rule and knowledge engine.
+
+### 3. Production Database Setup (Optional PostgreSQL)
+For persistent production records, set `DATABASE_URL` to a PostgreSQL connection URI:
+```env
+DATABASE_URL=postgresql://user:password@hostname:5432/iris_app_db
+```
+SQLAlchemy automatically creates all required tables and seeds default records on application startup without manual SQL scripting.
 
 ---
 

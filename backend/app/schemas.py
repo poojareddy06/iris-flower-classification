@@ -111,6 +111,7 @@ class ImageAnalysisResponse(BaseModel):
     predicted_species: str
     confidence: float
     is_suitable: bool
+    is_reliable: Optional[bool] = True
     flower_info: Dict[str, Any]
     possible_disease: Dict[str, Any]
     model_pipeline: str = "Computer Vision Flower Analysis Engine (Separated from Tabular Decision Tree)"

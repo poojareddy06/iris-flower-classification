@@ -35,6 +35,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onNavigate }) => 
     { id: 'analytics', label: t('nav_analytics'), icon: BarChart3 },
     { id: 'history', label: t('nav_history'), icon: History },
     { id: 'ai_assistant', label: t('nav_ai_assistant'), icon: Bot, highlight: true },
+    { id: 'education', label: t('nav_education') || 'ML Education & Workflow', icon: GraduationCap },
     { id: 'settings', label: t('nav_settings'), icon: Settings },
   ];
 

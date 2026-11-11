@@ -5,6 +5,8 @@ __pycache__/
 *.so
 .Python
 env/
+.venv/
+venv/
 build/
 develop-eggs/
 dist/
@@ -40,5 +42,7 @@ backend/saved_models/*.joblib
 # Environment
 .env
 .env.local
+frontend/.env
+frontend/.env.local
 .DS_Store
 Thumbs.db

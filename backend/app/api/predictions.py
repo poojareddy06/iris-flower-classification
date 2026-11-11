@@ -90,7 +90,7 @@ def get_prediction_history(
 ):
     query = db.query(Prediction)
     if current_user:
-        query = query.filter((Prediction.user_id == current_user.id) | (Prediction.user_id == None))
+        query = query.filter(Prediction.user_id == current_user.id)
     else:
         query = query.filter(Prediction.user_id == None)
 

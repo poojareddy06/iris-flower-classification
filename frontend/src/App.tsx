@@ -15,6 +15,7 @@ import { AIAssistantPage } from './pages/AIAssistantPage';
 import { HistoryPage } from './pages/HistoryPage';
 import { SettingsPage } from './pages/SettingsPage';
 import { AdminPage } from './pages/AdminPage';
+import { EducationPage } from './pages/EducationPage';
 
 export const App: React.FC = () => {
   const { isAuthenticated, isDemoMode, isLoading } = useAuth();
@@ -68,6 +69,8 @@ export const App: React.FC = () => {
         return <SettingsPage />;
       case 'admin':
         return <AdminPage />;
+      case 'education':
+        return <EducationPage onNavigate={setCurrentPage} />;
       default:
         return <DashboardPage onNavigate={setCurrentPage} />;
     }

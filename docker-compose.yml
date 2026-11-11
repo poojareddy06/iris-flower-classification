@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./iris_app.db
+      - SECRET_KEY=iris-ml-secret-key-decision-tree-2026-pooja-v
+      - AI_API_KEY=
+    volumes:
+      - ./backend/data:/app/data
+      - ./backend/saved_models:/app/saved_models
+      - ./backend/uploads:/app/uploads
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend

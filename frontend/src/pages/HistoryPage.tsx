@@ -103,10 +103,19 @@ export const HistoryPage: React.FC = () => {
           <a
             href={api.export.predictionsCSVUrl()}
             download
-            className="flex items-center gap-1.5 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-semibold border border-slate-700 transition"
+            className="flex items-center gap-1.5 px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-semibold border border-slate-700 transition"
           >
-            <Download className="w-3.5 h-3.5 text-iris-400" />
-            <span>{t('btn_export_csv')}</span>
+            <Download className="w-3.5 h-3.5 text-blue-400" />
+            <span>CSV Export</span>
+          </a>
+
+          <a
+            href={api.export.predictionsPDFUrl()}
+            download
+            className="flex items-center gap-1.5 px-3.5 py-2 bg-gradient-to-r from-iris-600 to-iris-500 hover:from-iris-500 hover:to-iris-400 text-white rounded-xl text-xs font-bold shadow-md shadow-iris-600/25 transition"
+          >
+            <Download className="w-3.5 h-3.5 text-white" />
+            <span>PDF Export</span>
           </a>
 
           {predictions.length > 0 && tab === 'predictions' && (

@@ -117,19 +117,29 @@ def delete_account(
     return {"status": "success", "message": "User account and all associated models, datasets, and history deleted."}
 
 def ensure_default_user_seeded(db: Session):
+    admin_email = "admin@irislab.ai"
+    existing_admin = db.query(User).filter(User.email == admin_email).first()
+    if not existing_admin:
+        admin_user = User(
+            email=admin_email,
+            full_name="Platform Administrator",
+            hashed_password=get_password_hash("password123"),
+            role="admin",
+            settings={"theme": "dark", "language": "en"}
+        )
+        db.add(admin_user)
+
     demo_email = "demo@irislab.ai"
-    existing = db.query(User).filter(User.email == demo_email).first()
-    if not existing:
+    existing_demo = db.query(User).filter(User.email == demo_email).first()
+    if not existing_demo:
         demo_user = User(
             email=demo_email,
-            full_name="Reviewer / Faculty (Demo)",
+            full_name="Researcher / Student (Demo)",
             hashed_password=get_password_hash("password123"),
             role="user",
             settings={"theme": "dark", "language": "en"}
         )
         db.add(demo_user)
-        db.commit()
-        db.refresh(demo_user)
-        return demo_user
-    return existing
+
+    db.commit()
 

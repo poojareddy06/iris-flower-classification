@@ -129,6 +129,16 @@ def get_model_analytics(model_id: int, db: Session = Depends(get_db)):
         f"This aligns directly with botanical biology, where petal dimensions clearly differentiate Iris species."
     )
 
+    # Class distribution from dataset
+    dataset = db.query(Dataset).filter(Dataset.id == model.dataset_id).first() if model.dataset_id else None
+    class_dist = dataset.class_distribution if (dataset and dataset.class_distribution) else {"Iris-setosa": 50, "Iris-versicolor": 50, "Iris-virginica": 50}
+
+    # Prediction distribution across models
+    from sqlalchemy import func
+    pred_counts = db.query(Prediction.predicted_species, func.count(Prediction.id))\
+        .group_by(Prediction.predicted_species).all()
+    prediction_dist = {spec: count for spec, count in pred_counts} if pred_counts else {"Iris-setosa": 1, "Iris-versicolor": 1, "Iris-virginica": 1}
+
     return {
         "model_id": model.id,
         "model_name": model.model_name,
@@ -148,5 +158,7 @@ def get_model_analytics(model_id: int, db: Session = Depends(get_db)):
         "tree_rules": model.tree_rules,
         "interpretation": explanation,
         "hyperparameters": model.hyperparameters,
+        "class_distribution": class_dist,
+        "prediction_distribution": prediction_dist,
         "created_at": model.created_at
     }

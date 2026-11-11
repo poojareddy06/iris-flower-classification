@@ -229,9 +229,9 @@ class ImageService:
         blue_purple_ratio = (mean_b + mean_r * 0.7) / (mean_g + 1e-5)
         saturation_est = max(mean_r, mean_g, mean_b) - min(mean_r, mean_g, mean_b)
 
-        # Classification heuristic based on color distribution & brightness balance
+        # Species classification heuristic based on color distribution & brightness balance
+        # Only identify species when botanical characteristics are sufficiently distinct
         if blue_purple_ratio > 1.35 and mean_b > 110:
-            # Iris versicolor or virginica
             if mean_b > 140 or std_b > 55:
                 pred_species = "Iris-versicolor"
                 conf = 0.88 + min(0.08, (blue_purple_ratio - 1.35) * 0.05)
@@ -241,86 +241,47 @@ class ImageService:
         elif saturation_est > 40 and (mean_r > mean_g) and mean_b > 80:
             pred_species = "Iris-setosa"
             conf = 0.87 + min(0.08, (mean_r / 300.0))
-        else:
-            # General iris classification
+        elif botanical_ratio >= 0.25:
+            # Moderate botanical characteristics
             if mean_b >= mean_r:
                 pred_species = "Iris-versicolor"
-                conf = 0.82
+                conf = 0.78
             else:
                 pred_species = "Iris-virginica"
-                conf = 0.80
+                conf = 0.75
+        else:
+            # When image cannot be reliably identified, clearly show uncertainty
+            pred_species = "Uncertain / Low Confidence Botanical Identification"
+            conf = 0.40
 
         conf = float(round(min(conf, 0.96), 2))
-        info = FLOWER_SPECIES_KNOWLEDGE.get(pred_species, {})
+        is_reliable = conf >= 0.70
+        info = FLOWER_SPECIES_KNOWLEDGE.get(pred_species, {}) if is_reliable else {}
 
-        # Visible Problem / Disease Inspection Module
-        # Check for necrotic spotting (dark patches), leaf yellowing/chlorosis (high yellow ratio), or healthy foliage
-        yellow_ratio = (mean_r + mean_g) / (2.0 * (mean_b + 1e-5))
-        darkness_ratio = (255 - mean_r + 255 - mean_g + 255 - mean_b) / (3.0 * 255)
-
-        possible_disease = {}
-        if std_g > 60 and mean_g < 90 and darkness_ratio > 0.55:
-            possible_disease = {
-                "issue_detected": "Possible Iris Leaf Spot (Didymellina macrospora / Cladosporium)",
-                "observation_status": "Visible symptoms consistent with fungal leaf spotting",
-                "visual_indicators": [
-                    "Localized dark necrotic spots or brownish blemishes detected on vegetative tissue",
-                    "Slight chlorotic borders surrounding darker cellular clusters",
-                    "Elevated color variance across foliage regions"
-                ],
-                "confidence_score": 0.74,
-                "confidence_label": "Moderate Probability (Visual Heuristic)",
-                "disclaimer": "NOTICE: This is an AI-assisted visual observation, NOT a verified agricultural or phytosanitary diagnosis. Environmental stressors can mimic disease symptoms.",
-                "suggested_actions": [
-                    "Inspect underside of leaves for fuzzy gray or olive sporulation.",
-                    "Remove and safely dispose of affected brown foliage in autumn.",
-                    "Avoid overhead sprinkler irrigation to keep foliage dry.",
-                    "Ensure adequate air circulation between clumps."
-                ]
-            }
-        elif yellow_ratio > 1.55 and mean_g > 120:
-            possible_disease = {
-                "issue_detected": "Possible Foliar Chlorosis / Micronutrient Deficiency",
-                "observation_status": "Signs consistent with leaf yellowing or soil imbalance",
-                "visual_indicators": [
-                    "Diffuse yellow-green discoloration across leaf blade",
-                    "Potential iron or nitrogen uptake restriction in alkaline soil",
-                    "Absence of severe dark concentric lesions"
-                ],
-                "confidence_score": 0.68,
-                "confidence_label": "Preliminary Observation",
-                "disclaimer": "NOTICE: Visual yellowing can result from drainage issues, root boundness, or soil pH rather than pathogen infection.",
-                "suggested_actions": [
-                    "Check soil drainage; prevent standing water around the rhizomes.",
-                    "Test soil pH (irises prefer pH 6.0 to 6.8).",
-                    "Apply a balanced, low-nitrogen perennial fertilizer."
-                ]
-            }
-        else:
-            possible_disease = {
-                "issue_detected": "No Visible Pathological Symptoms Detected",
-                "observation_status": "Botanical tissue appears healthy and vibrant",
-                "visual_indicators": [
-                    "Even, uniform pigment saturation across floral petals",
-                    "Normal sepals without significant necrotic lesions or fungal spotting",
-                    "Intact floral margins without evidence of insect gnawing"
-                ],
-                "confidence_score": 0.91,
-                "confidence_label": "High Visual Consistency",
-                "disclaimer": "NOTICE: While no visible external damage is observed in this photo, internal root conditions (such as bacterial soft rot) cannot be evaluated from exterior petal photography.",
-                "suggested_actions": [
-                    "Continue regular sunlight exposure and well-draining soil management.",
-                    "Mulch lightly around, but never directly over, exposed iris rhizomes."
-                ]
-            }
+        # Disease detection requirement:
+        # Do not claim to detect flower diseases unless a suitable, validated disease-detection model
+        # and dataset are actually implemented. If unavailable, display that the feature is not configured.
+        possible_disease = {
+            "is_configured": False,
+            "status": "Feature Not Configured",
+            "issue_detected": "Flower Disease Detection Not Configured",
+            "disclaimer": "NOTICE: Automated plant disease detection is NOT configured. Botanical disease diagnosis requires specialized phytopathological datasets and validated computer vision models.",
+            "visual_indicators": [
+                "Disease detection model is not installed or configured on this platform."
+            ],
+            "suggested_actions": [
+                "Consult a certified botanist or agricultural extension service for disease assessment."
+            ]
+        }
 
         return {
             "is_suitable": True,
+            "is_reliable": is_reliable,
             "predicted_species": pred_species,
             "confidence": conf,
             "image_format": img_format,
             "dimensions": {"width": width, "height": height},
             "flower_info": info,
             "possible_disease": possible_disease,
-            "model_pipeline": "Dedicated Computer Vision Iris Analysis Service (Separate from Tabular Decision Tree)"
+            "model_pipeline": "Dedicated Computer Vision Iris Analysis Service (Separate from Tabular Decision Tree Model)"
         }

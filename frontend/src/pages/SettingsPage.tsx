@@ -18,7 +18,8 @@ import {
   Save,
   Database,
   Camera,
-  History
+  History,
+  Bot
 } from 'lucide-react';
 
 export const SettingsPage: React.FC = () => {
