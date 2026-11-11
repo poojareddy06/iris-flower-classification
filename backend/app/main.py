@@ -1,3 +1,7 @@
+
+@app.get("/")
+def home():
+    return {"message": "Iris Flower API is running"}
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
